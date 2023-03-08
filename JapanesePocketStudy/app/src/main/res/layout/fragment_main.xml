@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".ui.main.FragmentMain">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -20,20 +20,29 @@
             android:id="@+id/jisho"
             style="@android:style/Widget.Button"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/purple_500"
-            app:layout_constraintDimensionRatio="H,1:1">
+            android:layout_height="50dp"
+            android:background="@color/teal_700"
+            android:layout_weight="1">
 
             <com.example.japanesepocketstudy.ui.main.furiganatextview.furiganaview.FuriganaTextView
+                android:id="@+id/jisho_text_jpn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:autoSizeTextType="uniform"
                 android:text="@string/dictonary_jpn"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+
                 android:textColor="@color/black"
                 app:contains_ruby_tags="true"
                 app:furigana_text_color="@color/black" />
+
+            <TextView
+                android:id="@+id/jisho_text_eng"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoSizeTextType="uniform"
+                android:text="@string/dictonary_eng"
+                android:textColor="@color/black"
+                />
         </LinearLayout>
 
         <Space
@@ -44,19 +53,28 @@
             android:id="@+id/kanji"
             style="@android:style/Widget.Button"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/purple_500">
+            android:layout_height="50dp"
+            android:background="@color/teal_700"
+            android:layout_weight="1">
 
             <com.example.japanesepocketstudy.ui.main.furiganatextview.furiganaview.FuriganaTextView
+                android:id="@+id/kanji_text_jpn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:autoSizeTextType="uniform"
                 android:text="@string/kanji_jpn"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:textColor="@color/black"
                 app:contains_ruby_tags="true"
                 app:furigana_text_color="@color/black" />
+
+            <TextView
+                android:id="@+id/kanji_text_eng"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoSizeTextType="uniform"
+                android:text="@string/kanji_eng"
+                android:textColor="@color/black"
+                />
         </LinearLayout>
 
         <Space
@@ -67,19 +85,28 @@
             android:id="@+id/sentences"
             style="@android:style/Widget.Button"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/purple_500">
+            android:layout_height="50dp"
+            android:background="@color/teal_700"
+            android:layout_weight="1">
 
             <com.example.japanesepocketstudy.ui.main.furiganatextview.furiganaview.FuriganaTextView
+                android:id="@+id/sentences_text_jpn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:autoSizeTextType="uniform"
                 android:text="@string/sentences_jpn"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:textColor="@color/black"
                 app:contains_ruby_tags="true"
                 app:furigana_text_color="@color/black" />
+
+            <TextView
+                android:id="@+id/sentences_text_eng"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoSizeTextType="uniform"
+                android:text="@string/sentences_eng"
+                android:textColor="@color/black"
+                />
         </LinearLayout>
 
         <Space
@@ -90,20 +117,28 @@
             android:id="@+id/settings1"
             style="@android:style/Widget.Button"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:focusable="false"
-            android:clickable="true">
+            android:layout_height="50dp"
+            android:background="@color/teal_700"
+            android:layout_weight="1">
 
             <com.example.japanesepocketstudy.ui.main.furiganatextview.furiganaview.FuriganaTextView
+                android:id="@+id/settings1_text_jpn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:autoSizeTextType="uniform"
                 android:text="@string/settings_jpn"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:textColor="@color/black"
                 app:contains_ruby_tags="true"
                 app:furigana_text_color="@color/black" />
+
+            <TextView
+                android:id="@+id/settings1_text_eng"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoSizeTextType="uniform"
+                android:text="@string/settings_eng"
+                android:textColor="@color/black"
+                />
         </LinearLayout>
 
 
