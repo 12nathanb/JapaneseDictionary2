@@ -2,12 +2,13 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph">
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragmentMain">
     <fragment
         android:id="@+id/fragmentSettings"
         android:name="com.example.japanesepocketstudy.ui.main.FragmentSettings"
         android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" >
+        tools:layout="@layout/fragment_settings">
         <action
             android:id="@+id/action_fragmentSettings_to_fragmentMain"
             app:destination="@id/fragmentMain" />
@@ -17,7 +18,7 @@
         android:id="@+id/fragmentMain"
         android:name="com.example.japanesepocketstudy.ui.main.FragmentMain"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_fragmentMain_to_fragmentSettings"
             app:destination="@id/fragmentSettings" />
