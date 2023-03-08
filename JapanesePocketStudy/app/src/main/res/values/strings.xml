@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">JapanesePocketStudy</string>
+    <string name="kanji_jpn">&lt;ruby&gt;漢&lt;rt&gt;かん&lt;/rt&gt;&lt;/ruby&gt;&lt;ruby&gt;字&lt;rt&gt;じ&lt;/rt&gt;&lt;/ruby&gt;</string>
+    <string name="dictonary_jpn">&lt;ruby&gt;辞&lt;rt&gt;じ&lt;/rt&gt;&lt;/ruby&gt;&lt;ruby&gt;書&lt;rt&gt;しょ&lt;/rt&gt;&lt;/ruby&gt;</string>
+    <string name="settings_jpn">&lt;ruby&gt;設定&lt;rt&gt;せってい&lt;/rt&gt;&lt;/ruby&gt;</string>
+    <string name="sentences_jpn">&lt;ruby&gt;文&lt;rt&gt;ぶん&lt;/rt&gt;&lt;/ruby&gt;</string>
+    <string name="kanji_eng">Kanji</string>
+    <string name="dictonary_eng">Dictionary</string>
+    <string name="settings_eng">Settings</string>
+    <string name="sentences_eng">Sentences</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
