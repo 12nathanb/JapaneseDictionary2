@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentKanji"
-        android:name="com.example.japanesepocketstudy.ui.main.FragmentKanji"
+        android:name="com.example.japanesepocketstudy.ui.main.kanji.FragmentKanji"
         android:label="FragmentKanji" >
         <action
             android:id="@+id/action_fragmentKanji_to_fragmentMain"
