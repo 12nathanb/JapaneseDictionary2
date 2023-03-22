@@ -61,6 +61,7 @@ class FragmentMain : Fragment() {
         }
 
         binding.sentences.setOnClickListener {
+            findNavController().navigate(R.id.action_fragmentMain_to_fragmentScentence)
             binding.settings1.background = context?.getDrawable(R.color.teal_700)
             binding.kanji.background = context?.getDrawable(R.color.teal_700)
             binding.jisho.background = context?.getDrawable(R.color.teal_700)

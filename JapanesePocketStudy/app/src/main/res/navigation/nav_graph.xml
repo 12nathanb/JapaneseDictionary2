@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_fragmentMain_to_fragmentKanji"
             app:destination="@id/fragmentKanji" />
+        <action
+            android:id="@+id/action_fragmentMain_to_fragmentScentence"
+            app:destination="@id/fragmentScentence" />
     </fragment>
     <fragment
         android:id="@+id/fragmentKanji"
@@ -32,6 +35,14 @@
         android:label="FragmentKanji" >
         <action
             android:id="@+id/action_fragmentKanji_to_fragmentMain"
+            app:destination="@id/fragmentMain" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentScentence"
+        android:name="com.example.japanesepocketstudy.ui.main.sentence.FragmentScentence"
+        android:label="FragmentScentence" >
+        <action
+            android:id="@+id/action_fragmentScentence_to_fragmentMain"
             app:destination="@id/fragmentMain" />
     </fragment>
 </navigation>
