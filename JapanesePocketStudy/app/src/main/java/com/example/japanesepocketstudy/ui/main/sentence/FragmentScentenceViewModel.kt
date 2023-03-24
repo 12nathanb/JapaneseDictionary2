@@ -1,11 +1,11 @@
 package com.example.japanesepocketstudy.ui.main.sentence
 
-import Jpn2EngSentencesEntity
 import androidx.lifecycle.ViewModel
+import com.example.japanesepocketstudy.entities.Jpn2EngSentencesEntity
 
 class FragmentScentenceViewModel: ViewModel() {
 
-    var sentenceList = mutableListOf<Jpn2EngSentencesEntity>()
+    var sentenceList = listOf<Jpn2EngSentencesEntity>()
     var currentSentence: Jpn2EngSentencesEntity? = null
 
     fun getRandomItem() {

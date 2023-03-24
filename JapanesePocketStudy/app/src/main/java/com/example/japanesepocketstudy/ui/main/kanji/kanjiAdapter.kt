@@ -8,7 +8,7 @@ import com.example.japanesepocketstudy.databinding.KanjiItemBinding
 import com.example.japanesepocketstudy.entities.KanjiDictEntity
 
 
-class kanjiAdapter(val items: MutableList<KanjiDictEntity>) :
+class kanjiAdapter(val items: List<KanjiDictEntity>) :
     RecyclerView.Adapter<kanjiAdapter.ViewHolder>() {
     private lateinit var binding: KanjiItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): kanjiAdapter.ViewHolder {
