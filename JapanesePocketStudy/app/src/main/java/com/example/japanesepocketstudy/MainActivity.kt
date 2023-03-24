@@ -10,8 +10,7 @@ import androidx.room.Room
 import com.example.japanesepocketstudy.database.Database
 import com.example.japanesepocketstudy.databinding.ActivityMainBinding
 import com.example.japanesepocketstudy.databinding.FragmentMainBinding
-import com.example.japanesepocketstudy.entities.Jpn2EngSentencesEntity
-import com.example.japanesepocketstudy.entities.KanjiDictEntity
+import com.example.japanesepocketstudy.entities.*
 import com.example.japanesepocketstudy.ui.main.FragmentMain
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -87,6 +86,24 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
+            if (db.dictionaryDao().getAll().isEmpty()) {
+                resources.openRawResource(R.raw.jm2).bufferedReader().use {
+                    val jsonKanji = JSONArray(it.readText())
+                    for (i in 0 until jsonKanji.length()) {
+                        val current = jsonKanji.getJSONObject(i)
+
+                        val finalItem = JMDictSimple(
+                            id = current.getString("id"),
+                            kanji = JSONArrayToSimpleItemArray(current.getJSONArray("kanji")),
+                            kana =  JSONArrayToSimpleItemArray(current.getJSONArray("kana")),
+                            meaning = JSONArrayToMeaningItemArray(current.getJSONArray("meaning"))
+                        )
+
+                        db.dictionaryDao().insertAll(finalItem)
+                    }
+                }
+                println("FINISHED")
+            }
         }
 
     }
@@ -100,6 +117,27 @@ class MainActivity : AppCompatActivity() {
         var stringArray = mutableListOf<String>()
         for (m in 0 until jsonArray.length()) {
             stringArray.add(jsonArray.get(m) as String)
+        }
+
+        return stringArray
+    }
+
+    fun JSONArrayToSimpleItemArray(jsonArray: JSONArray): List<Simpleitem> {
+        var stringArray = mutableListOf<Simpleitem>()
+        for (m in 0 until jsonArray.length()) {
+            val item = jsonArray.getJSONObject(m)
+            stringArray.add(Simpleitem(kanji = item.getString("kanji"), item.getBoolean("common")))
+        }
+
+        return stringArray
+    }
+
+    fun JSONArrayToMeaningItemArray(jsonArray: JSONArray): List<SimpleMeaning> {
+        var stringArray = mutableListOf<SimpleMeaning>()
+        for (m in 0 until jsonArray.length()) {
+            val item = jsonArray.getJSONObject(m)
+            stringArray.add(SimpleMeaning(meaning = item.getString("meaning"),
+                workType = JSONArrayToStringArray(item.getJSONArray("workType"))))
         }
 
         return stringArray
