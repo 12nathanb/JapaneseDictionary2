@@ -10,6 +10,9 @@ interface DictionaryDao {
     @Query("SELECT * FROM dictionary")
     fun getAll(): List<JMDictSimple>
 
+    @Query("SELECT COUNT(*) FROM dictionary")
+    fun getAmount(): Int
+
     @Insert
     fun insertAll(vararg kanji: JMDictSimple)
 }

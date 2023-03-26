@@ -11,6 +11,11 @@ interface SentenceDao {
     @Query("SELECT * FROM sentences")
     fun getAll(): List<Jpn2EngSentencesEntity>
 
+    @Query("SELECT COUNT(*) FROM sentences")
+    fun getAmount(): Int
+
+    @Query("SELECT * FROM sentences WHERE japanese LIKE '%' || :search || '%'")
+    fun searchSentence(search: String): List<Jpn2EngSentencesEntity>
     @Insert
     fun insertAll(vararg kanji: Jpn2EngSentencesEntity)
 }

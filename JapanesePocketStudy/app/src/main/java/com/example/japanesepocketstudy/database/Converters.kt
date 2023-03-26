@@ -1,9 +1,10 @@
 package com.example.japanesepocketstudy.database
-import com.google.gson.Gson
 import androidx.room.TypeConverter
 import com.example.japanesepocketstudy.entities.SimpleMeaning
 import com.example.japanesepocketstudy.entities.Simpleitem
-import kotlin.reflect.typeOf
+import com.google.gson.Gson
+import com.google.gson.JsonArray
+
 
 class Converters {
     @TypeConverter
@@ -14,8 +15,18 @@ class Converters {
     @TypeConverter
     fun toStringList(value: String): List<String> {
         return try {
-            Gson().fromJson(value, listOf<String>().javaClass)
+            var stringList = mutableListOf<String>()
+            val gson = Gson()
+            val array: JsonArray = gson.fromJson(value, JsonArray::class.java)
+            for (element in array) {
+                val item: String = gson.fromJson(element, String::class.java)
+                stringList.add(item)
+            }
+
+            stringList
+
         } catch (e: Exception) {
+            println(e)
             arrayListOf()
         }
     }
@@ -27,10 +38,19 @@ class Converters {
 
     @TypeConverter
     fun toSimpleItem(value: String): List<Simpleitem> {
+        var tempList = mutableListOf<Simpleitem>()
         return try {
-            Gson().fromJson(value, listOf<Simpleitem>().javaClass)
-        } catch (e: Exception) {
-            arrayListOf()
+            val gson = Gson()
+            val array: JsonArray = gson.fromJson(value, JsonArray::class.java)
+            for (element in array) {
+                val item: Simpleitem = gson.fromJson(element, Simpleitem::class.java)
+                tempList.add(item)
+            }
+
+            tempList
+        } catch (e: Exception){
+            println("$e")
+            emptyList()
         }
     }
 

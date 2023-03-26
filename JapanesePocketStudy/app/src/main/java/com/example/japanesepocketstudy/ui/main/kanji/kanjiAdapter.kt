@@ -2,10 +2,17 @@ package com.example.japanesepocketstudy.ui.main.kanji
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
+import com.example.japanesepocketstudy.database.Database
 import com.example.japanesepocketstudy.databinding.KanjiItemBinding
 import com.example.japanesepocketstudy.entities.KanjiDictEntity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 
 class kanjiAdapter(val items: List<KanjiDictEntity>) :
@@ -14,6 +21,7 @@ class kanjiAdapter(val items: List<KanjiDictEntity>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): kanjiAdapter.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         binding = KanjiItemBinding.inflate(inflater, parent, false)
+
         return ViewHolder(binding)
     }
 
@@ -39,6 +47,8 @@ class kanjiAdapter(val items: List<KanjiDictEntity>) :
                 } else {
                     frequency.isVisible = false
                 }
+
+                println("meaning" + item.meanings)
 
                 title.text = item.meanings.joinToString(", ")
 

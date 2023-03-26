@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
 import com.example.japanesepocketstudy.R
@@ -29,31 +30,18 @@ class FragmentKanji : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentKanjiBinding.inflate(inflater, container, false)
-        viewModel.sharedPref = requireContext().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
-        val db = Room.databaseBuilder(
-            requireContext(),
-            Database::class.java,
-            "JapaneseDatabase"
-        ).fallbackToDestructiveMigration().build()
+        viewModel.sharedPref =
+            requireContext().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
 
-        CoroutineScope(context = Dispatchers.IO).launch {
-
-            viewModel.kanjiList = db.kanjiDao().getAll()
-
-            CoroutineScope(context = Dispatchers.Main).launch {
-                binding.listView.isVisible = false
-                binding.progressBar1.isVisible = true
-            }
-
-            CoroutineScope(context = Dispatchers.Main).launch {
-                binding.listView.isVisible = true
-                binding.progressBar1.isVisible = false
-                binding.listView.apply {
-                    layoutManager = LinearLayoutManager(requireContext())
-                    adapter = kanjiAdapter(viewModel.kanjiList)
+            Database.getInstance(requireContext())?.kanjiDao()?.getAll()?.observe(viewLifecycleOwner
+            ) { value ->
+                CoroutineScope(context = Dispatchers.Main).launch {
+                    binding.listView.apply {
+                        layoutManager = LinearLayoutManager(requireContext())
+                        adapter = kanjiAdapter(value.sortedBy { it.grade })
+                    }
                 }
             }
-        }
         return binding.root
     }
 }
