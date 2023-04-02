@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 import org.json.JSONArray
 
 class FragmentScentence : Fragment() {
-    val viewModel = FragmentScentenceViewModel()
+    private val viewModel = FragmentScentenceViewModel()
     private var _binding: FragmentSentenceBinding? = null
     private val binding get() = _binding!!
 
@@ -30,14 +30,12 @@ class FragmentScentence : Fragment() {
 
         binding.show.isVisible = false
 
-        val db = Room.databaseBuilder(
-            requireContext(),
-            Database::class.java,
-            "JapaneseDatabase"
-        ).fallbackToDestructiveMigration().build()
+        val db = Database.getInstance(requireContext())
 
         CoroutineScope(context = Dispatchers.IO).launch {
-            viewModel.sentenceList = db.sentenceDao().getAll()
+            if (db != null) {
+                viewModel.sentenceList = db.sentenceDao().getAll()
+            }
 
             CoroutineScope(context = Dispatchers.Main).launch {
                 binding.show.isVisible = true

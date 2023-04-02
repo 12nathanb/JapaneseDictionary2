@@ -1,5 +1,6 @@
 package com.example.japanesepocketstudy.ui.main.kanji
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContentProviderCompat.requireContext
@@ -15,8 +16,9 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 
-class kanjiAdapter(val items: List<KanjiDictEntity>) :
+class kanjiAdapter(val items: List<KanjiDictEntity>, context: Context) :
     RecyclerView.Adapter<kanjiAdapter.ViewHolder>() {
+    private var context = context
     private lateinit var binding: KanjiItemBinding
     private var database: Database? = null
     private var expanded: Boolean = false
@@ -24,7 +26,7 @@ class kanjiAdapter(val items: List<KanjiDictEntity>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): kanjiAdapter.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         binding = KanjiItemBinding.inflate(inflater, parent, false)
-        database = Database.getInstance(parent.context)
+        database = Database.getInstance(context)
         return ViewHolder(binding)
     }
 
@@ -38,6 +40,7 @@ class kanjiAdapter(val items: List<KanjiDictEntity>) :
             binding.apply {
                 kanji.text = item.kanji
                 stroke.text = "Stroke Count: " + item.strokeCount.toString()
+                expand.isVisible = expanded
 
                 if (item.grade != null) {
                     grade.text = "Grade: " + item.grade.toString()
@@ -60,8 +63,15 @@ class kanjiAdapter(val items: List<KanjiDictEntity>) :
                 main.setOnClickListener {
                     if (!expanded) {
                         CoroutineScope(Dispatchers.IO).launch {
+
                             for (item in database?.sentenceDao()?.searchSentence(item.kanji)!!) {
                                 meanings.add(item.japaneseSentence)
+                            }
+
+                            CoroutineScope(Dispatchers.Main).launch {
+                                if (meanings.size > 0) {
+                                    sentences.text = "• " + meanings.joinToString("\n\n• ")
+                                }
                             }
                         }
                     } else {
@@ -70,7 +80,6 @@ class kanjiAdapter(val items: List<KanjiDictEntity>) :
 
                     expanded = !expanded
                     expand.isVisible = expanded
-                    sentences.text = meanings.joinToString("\n")
                 }
 
             }

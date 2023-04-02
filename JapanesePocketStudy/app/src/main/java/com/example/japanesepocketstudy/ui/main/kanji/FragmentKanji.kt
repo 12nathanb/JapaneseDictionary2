@@ -33,15 +33,16 @@ class FragmentKanji : Fragment() {
         viewModel.sharedPref =
             requireContext().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
 
-            Database.getInstance(requireContext())?.kanjiDao()?.getAll()?.observe(viewLifecycleOwner
-            ) { value ->
-                CoroutineScope(context = Dispatchers.Main).launch {
-                    binding.listView.apply {
-                        layoutManager = LinearLayoutManager(requireContext())
-                        adapter = kanjiAdapter(value)
-                    }
+        Database.getInstance(requireContext())?.kanjiDao()?.getAll()?.observe(
+            viewLifecycleOwner
+        ) { value ->
+            CoroutineScope(context = Dispatchers.Main).launch {
+                binding.listView.apply {
+                    layoutManager = LinearLayoutManager(requireContext())
+                    adapter = kanjiAdapter(value, requireContext())
                 }
             }
+        }
         return binding.root
     }
 }
