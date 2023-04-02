@@ -38,7 +38,7 @@ class FragmentKanji : Fragment() {
                 CoroutineScope(context = Dispatchers.Main).launch {
                     binding.listView.apply {
                         layoutManager = LinearLayoutManager(requireContext())
-                        adapter = kanjiAdapter(value.sortedBy { it.grade })
+                        adapter = kanjiAdapter(value)
                     }
                 }
             }

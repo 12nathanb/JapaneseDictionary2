@@ -18,10 +18,13 @@ import kotlinx.coroutines.launch
 class kanjiAdapter(val items: List<KanjiDictEntity>) :
     RecyclerView.Adapter<kanjiAdapter.ViewHolder>() {
     private lateinit var binding: KanjiItemBinding
+    private var database: Database? = null
+    private var expanded: Boolean = false
+    private var meanings = mutableListOf<String>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): kanjiAdapter.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         binding = KanjiItemBinding.inflate(inflater, parent, false)
-
+        database = Database.getInstance(parent.context)
         return ViewHolder(binding)
     }
 
@@ -48,13 +51,27 @@ class kanjiAdapter(val items: List<KanjiDictEntity>) :
                     frequency.isVisible = false
                 }
 
-                println("meaning" + item.meanings)
-
                 title.text = item.meanings.joinToString(", ")
 
                 onyomi.text = item.onyomi.joinToString("\n")
 
                 kunyomi.text = item.kunyomi.joinToString("\n")
+
+                main.setOnClickListener {
+                    if (!expanded) {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            for (item in database?.sentenceDao()?.searchSentence(item.kanji)!!) {
+                                meanings.add(item.japaneseSentence)
+                            }
+                        }
+                    } else {
+                        meanings.clear()
+                    }
+
+                    expanded = !expanded
+                    expand.isVisible = expanded
+                    sentences.text = meanings.joinToString("\n")
+                }
 
             }
         }
